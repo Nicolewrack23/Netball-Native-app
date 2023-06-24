@@ -48,7 +48,7 @@ const RoundsSelection = ({ handleRoundSelection, selectedRound }) => {
 
 const styles = StyleSheet.create({
   selectedRound: {
-    borderColor: "blue",
+    borderColor: "#219EBC",
   },
   roundGrouping: {
     width: "100%",
