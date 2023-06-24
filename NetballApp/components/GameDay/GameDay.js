@@ -10,7 +10,7 @@ const GameDay = () => {
   const [team2, setTeam2] = useState("Team 2");
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const [selectedRound, setSelectedRound] = useState(null);
+  const [selectedRound, setSelectedRound] = useState(2);
   const [timePerRound, setTimePerRound] = useState(10);
 
   const handleValueChange = (timePerRound) => {
@@ -34,7 +34,7 @@ const GameDay = () => {
     };
     // Save or process newGameData as needed
     console.log(newGameData);
-    await storeData(newGameData);
+    // await storeData(newGameData);
   };
 
   return (
