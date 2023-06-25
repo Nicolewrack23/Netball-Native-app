@@ -5,7 +5,7 @@ import InputSpinner from "react-native-input-spinner";
 import RoundsSelection from "./RoundsSelection";
 import { storeData } from "../Utils/LocalStorage";
 
-const GameDay = () => {
+const GameDay = ({ navigation }) => {
   const [team1, setTeam1] = useState("Team 1");
   const [team2, setTeam2] = useState("Team 2");
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -34,6 +34,7 @@ const GameDay = () => {
     };
     // Save or process newGameData as needed
     console.log(newGameData);
+    navigation.navigate("ScoringPage", { newGameData });
     // await storeData(newGameData);
   };
 
@@ -41,10 +42,7 @@ const GameDay = () => {
     <>
       <View style={styles.centeringContainer}>
         <View style={styles.buttonContainer}>
-          <View style={styles.headingGamePlan}>
-            <Text style={styles.headingFontSize}>Game Plan</Text>
-          </View>
-          <View style={styles.groupingTextInput}>
+          <View style={[styles.groupingTextInput, styles.topMargin]}>
             <Text style={[styles.groupText, styles.fontSize]}>Team Name</Text>
             <TextInput
               onChangeText={setTeam1}
@@ -109,10 +107,8 @@ const GameDay = () => {
 export default GameDay;
 
 const styles = StyleSheet.create({
-  headingFontSize: {
-    color: "#023047",
-    fontSize: 24,
-    marginTop: 40,
+  topMargin: {
+    marginTop: 15,
   },
   fontSize: {
     color: "#023047",
