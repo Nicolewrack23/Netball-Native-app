@@ -1,32 +1,48 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
-import { useState } from "react";
+import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Menu from "./components/MenuScreen";
-import AppPages from "./AppPages";
 import GameDay from "./components/GameDay/GameDay";
+import Scoring from "./components/Scoring/Scoring";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [appPages, setAppPage] = useState();
-
-  const goToPage = (page) => {
-    if (page) {
-      setAppPage(page);
-    } else {
-      setAppPage();
-    }
-  };
   return (
-    <View style={styles.container}>
-      {(() => {
-        switch (appPages) {
-          case AppPages.GameDay:
-            return <GameDay />;
-          default:
-            return <GameDay goToPage={goToPage} />;
-        }
-      })()}
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Menu}
+          options={{
+            title: "Netball",
+            headerTitleStyle: {
+              fontWeight: "normal",
+            },
+          }}
+        />
+        <Stack.Screen
+          name="GameDay"
+          component={GameDay}
+          options={{
+            title: "Game Plan",
+            headerTitleStyle: {
+              fontWeight: "normal",
+            },
+          }}
+        />
+        <Stack.Screen
+          name="ScoringPage"
+          component={Scoring}
+          options={{
+            title: "Scoring Page",
+            headerTitleStyle: {
+              fontWeight: "normal",
+            },
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

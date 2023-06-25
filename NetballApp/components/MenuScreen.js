@@ -1,7 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import AppPages from "../AppPages";
 
-export default function ButtonContainer({ goToPage }) {
+export default function ButtonContainer({ navigation }) {
   return (
     <View style={styles.MenuContainer}>
       <View style={styles.buttonContainer}>
@@ -10,7 +9,7 @@ export default function ButtonContainer({ goToPage }) {
         </Pressable>
         <Pressable
           style={styles.buttons}
-          onPress={() => goToPage(AppPages.GameDay)}
+          onPress={() => navigation.navigate("GameDay")}
         >
           <Text>Game Day</Text>
         </Pressable>
