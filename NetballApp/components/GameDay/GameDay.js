@@ -92,7 +92,7 @@ const GameDay = ({ navigation }) => {
           </View>
           <View style={styles.groupingActionButtons}>
             <Pressable disabled style={styles.actionButtons}>
-              <Text style={styles.actionButtonText}>Store Game</Text>
+              <Text style={styles.actionButtonText}>Coming soon</Text>
             </Pressable>
             <Pressable onPress={savingGameInfo} style={styles.actionButtons}>
               <Text style={styles.actionButtonText}>Play Game</Text>

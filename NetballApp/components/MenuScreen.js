@@ -4,8 +4,9 @@ export default function ButtonContainer({ navigation }) {
   return (
     <View style={styles.MenuContainer}>
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.buttons}>
+        <Pressable disabled style={styles.buttons}>
           <Text>Game Records</Text>
+          <Text>Coming soon</Text>
         </Pressable>
         <Pressable
           style={styles.buttons}
@@ -13,8 +14,9 @@ export default function ButtonContainer({ navigation }) {
         >
           <Text>Game Day</Text>
         </Pressable>
-        <Pressable style={styles.buttons}>
+        <Pressable disabled style={styles.buttons}>
           <Text>Team Info</Text>
+          <Text>Coming soon</Text>
         </Pressable>
       </View>
     </View>
