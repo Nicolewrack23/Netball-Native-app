@@ -1,26 +1,19 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
-const Counter = ({ value, onIncrementGS, onIncrementGA, onDecrement }) => {
+const Counter = ({ onIncrementGS, onIncrementGA }) => {
   return (
     <View style={styles.container}>
-      <Pressable onPress={onDecrement}>
-        <Text style={styles.buttonText}>-</Text>
-      </Pressable>
       <View style={styles.teamContainer}>
-        <View style={styles.scoresContainer}>
-          <View style={styles.scoreContainer}>
-            <Text style={styles.scoreText}>GS: {value}</Text>
-            <Pressable onPress={onIncrementGS}>
-              <Text style={styles.buttonText}>+</Text>
-            </Pressable>
-          </View>
-          <View style={styles.scoreContainer}>
-            <Text style={styles.scoreText}>GA: {value}</Text>
-            <Pressable onPress={onIncrementGA}>
-              <Text style={styles.buttonText}>+</Text>
-            </Pressable>
-          </View>
+        <View style={styles.scoreContainer}>
+          <Pressable onPress={onIncrementGS}>
+            <Text style={styles.buttonText}>GS</Text>
+          </Pressable>
+        </View>
+        <View style={styles.scoreContainer}>
+          <Pressable onPress={onIncrementGA}>
+            <Text style={styles.buttonText}>GA</Text>
+          </Pressable>
         </View>
       </View>
     </View>
@@ -39,13 +32,10 @@ const styles = StyleSheet.create({
   },
   teamContainer: {
     marginLeft: 20,
-  },
-  scoresContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: "column", // Added to stack "GS" and "GA" vertically
   },
   scoreContainer: {
-    marginRight: 20,
+    marginBottom: 10, // Added margin to separate "GS" and "GA"
   },
   scoreText: {
     fontSize: 18,
