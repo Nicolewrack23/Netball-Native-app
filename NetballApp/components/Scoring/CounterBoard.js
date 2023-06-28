@@ -3,25 +3,43 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 
 const CounterBoard = ({ value, onDecrement, label }) => {
   return (
-    <View
-      style={[
-        label === "team 2" && styles.flippedCounterContainer,
-        styles.container,
-      ]}
-    >
-      <Pressable onPress={onDecrement}>
-        <Text style={styles.buttonText}>-</Text>
-      </Pressable>
-      <View style={styles.teamContainer}>
-        <View style={styles.scoresContainer}>
+    <View style={styles.container}>
+      {label === "team 1" && (
+        <>
           <View style={styles.scoreContainer}>
-            <Text style={styles.scoreText}>{value}</Text>
+            <Pressable onPress={onDecrement}>
+              <Text style={styles.buttonText}>-</Text>
+            </Pressable>
           </View>
-        </View>
-      </View>
+          <View style={styles.teamContainer}>
+            <View style={styles.scoresContainer}>
+              <View style={styles.scoreContainer}>
+                <Text style={styles.scoreText}>{value}</Text>
+              </View>
+            </View>
+          </View>
+        </>
+      )}
+      {label === "team 2" && (
+        <>
+          <View style={styles.teamContainer}>
+            <View style={styles.scoresContainer}>
+              <View style={styles.scoreContainer}>
+                <Text style={styles.scoreText}>{value}</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.scoreContainer}>
+            <Pressable onPress={onDecrement}>
+              <Text style={styles.buttonText}>-</Text>
+            </Pressable>
+          </View>
+        </>
+      )}
     </View>
   );
 };
+
 export default CounterBoard;
 
 const styles = StyleSheet.create({
@@ -29,19 +47,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  flippedCounterContainer: {
-    transform: [{ scaleX: -1 }],
-  },
+  //   flippedContainer: {
+  //     justifyContent: "flex-end",
+  //   },
   buttonText: {
     fontSize: 20,
+  },
+  scoreContainer: {
+    marginHorizontal: 10,
   },
   teamContainer: {
     marginLeft: 20,
   },
   scoresContainer: {
-    marginRight: 20,
-  },
-  scoreContainer: {
     marginRight: 20,
   },
   scoreText: {
