@@ -93,6 +93,7 @@ const ScoringPage = ({ route, navigate }) => {
       </Pressable>
       <View style={styles.countersContainer}>
         <CounterBoard
+          label={"team 1"}
           onDecrement={() => decrementTeamScore(1)}
           value={team1Score}
         />
@@ -105,10 +106,12 @@ const ScoringPage = ({ route, navigate }) => {
       </View>
       <View style={styles.countersContainer}>
         <Counter
+          label={"team 1"}
           onIncrementGS={() => incrementTeamScoreGS(1)}
           onIncrementGA={() => incrementTeamScoreGA(1)}
         />
         <Counter
+          label={"team 2"}
           onIncrementGS={() => incrementTeamScoreGS(2)}
           onIncrementGA={() => incrementTeamScoreGA(2)}
         />
