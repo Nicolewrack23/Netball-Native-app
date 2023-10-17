@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import CountDown from "react-native-countdown-component";
+
 import Counter from "./Counter";
 import CounterBoard from "./CounterBoard";
 
 const ScoringPage = ({ route, navigate }) => {
   const { newGameData } = route.params;
-  const totalRounds = parseInt(newGameData.rounds);
-  const timer = parseInt(newGameData.timePerRound);
+  const totalRounds = parseInt(newGameData.Rounds);
+  console.log(totalRounds);
   const [currentRound, setCurrentRound] = useState(1);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   const [team1ScoreGS, setTeam1ScoreGS] = useState(0);
   const [team1ScoreGA, setTeam1ScoreGA] = useState(0);
@@ -54,43 +53,13 @@ const ScoringPage = ({ route, navigate }) => {
     }
   };
 
-  const handleTimerToggle = () => {
-    setIsTimerRunning(!isTimerRunning);
-  };
-
-  const handleTimerFinish = () => {
-    if (currentRound < totalRounds) {
-      setCurrentRound(currentRound + 1);
-      setIsTimerRunning(false);
-    } else {
-      alert("All rounds completed!");
-    }
-  };
-
   return (
     <View style={styles.container}>
       <Text style={styles.roundText}>Round: {currentRound}</Text>
-      <Text style={styles.teamText}>{newGameData.team1}</Text>
+      <Text style={styles.teamText}>{newGameData.Team1}</Text>
       <Text>VS</Text>
-      <Text style={styles.teamText}>{newGameData.team2}</Text>
-      <View style={styles.countdownContainer}>
-        <CountDown
-          until={60 * timer}
-          size={30}
-          onFinish={handleTimerFinish}
-          digitStyle={{ backgroundColor: "#FFF" }}
-          digitTxtStyle={{ color: "#1CC625" }}
-          timeToShow={["M", "S"]}
-          timeLabels={{ m: "MM", s: "SS" }}
-          running={isTimerRunning}
-          onPress={handleTimerToggle}
-        />
-      </View>
-      <Pressable onPress={handleTimerToggle}>
-        <Text style={styles.timerButton}>
-          {isTimerRunning ? "Stop" : "Start"} Timer
-        </Text>
-      </Pressable>
+      <Text style={styles.teamText}>{newGameData.Team2}</Text>
+
       <View style={styles.countersContainer}>
         <CounterBoard
           label={"team 1"}
@@ -134,17 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 5,
   },
-  timerText: {
-    fontSize: 20,
-    marginBottom: 20,
-  },
-  countdownContainer: {
-    marginBottom: 20,
-  },
-  timerButton: {
-    fontSize: 16,
-    marginBottom: 20,
-  },
+
   countersContainer: {
     flexDirection: "row",
   },

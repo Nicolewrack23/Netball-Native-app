@@ -1,7 +1,6 @@
 import { View, Text, Pressable, StyleSheet, TextInput } from "react-native";
 import { useState } from "react";
 import DatePicker from "./DatePicker";
-import InputSpinner from "react-native-input-spinner";
 import RoundsSelection from "./RoundsSelection";
 import { storeData } from "../Utils/LocalStorage";
 
@@ -9,13 +8,8 @@ const GameDay = ({ navigation }) => {
   const [team1, setTeam1] = useState("Team 1");
   const [team2, setTeam2] = useState("Team 2");
   const [selectedDate, setSelectedDate] = useState(new Date());
-
   const [selectedRound, setSelectedRound] = useState(2);
-  const [timePerRound, setTimePerRound] = useState(10);
-
-  const handleValueChange = (timePerRound) => {
-    setTimePerRound(timePerRound);
-  };
+  console.log(selectedRound);
 
   const handleDateChange = (event, date) => {
     setShowDatePicker(false);
@@ -26,16 +20,15 @@ const GameDay = ({ navigation }) => {
 
   const savingGameInfo = async () => {
     const newGameData = {
-      team1: team1,
-      team2: team2,
-      selectedDate: selectedDate.toString(),
-      rounds: selectedRound,
-      timePerRound: timePerRound,
+      Team1: team1,
+      Team2: team2,
+      SelectedDate: selectedDate.toString(),
+      Rounds: selectedRound,
     };
     // Save or process newGameData as needed
     console.log(newGameData);
     navigation.navigate("ScoringPage", { newGameData });
-    // await storeData(newGameData);
+    // await storeData(newGameData)
   };
 
   return (
@@ -69,31 +62,7 @@ const GameDay = ({ navigation }) => {
             handleRoundSelection={setSelectedRound}
             selectedRound={selectedRound}
           />
-
-          <View style={styles.groupingTextInput}>
-            <Text style={[styles.groupText, styles.fontSize]}>
-              Time (Per Round)
-            </Text>
-            <View style={styles.timeInput}>
-              <InputSpinner
-                max={60}
-                min={0}
-                step={1}
-                value={timePerRound}
-                buttonFontSize={34}
-                fontSize={24}
-                colorLeft="#219EBC"
-                colorRight="#219EBC"
-                colorPress="#8ECAE6"
-                skin="square"
-                onChange={handleValueChange}
-              />
-            </View>
-          </View>
           <View style={styles.groupingActionButtons}>
-            <Pressable disabled style={styles.actionButtons}>
-              <Text style={styles.actionButtonText}>Coming soon</Text>
-            </Pressable>
             <Pressable onPress={savingGameInfo} style={styles.actionButtons}>
               <Text style={styles.actionButtonText}>Play Game</Text>
             </Pressable>
@@ -108,7 +77,7 @@ export default GameDay;
 
 const styles = StyleSheet.create({
   topMargin: {
-    marginTop: 15,
+    marginTop: 35,
   },
   fontSize: {
     color: "#023047",
@@ -116,7 +85,7 @@ const styles = StyleSheet.create({
   },
   centeringContainer: { width: "100%" },
   buttonContainer: {
-    height: "100%",
+    height: "90%",
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
@@ -146,13 +115,11 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
   },
-  timeInput: {
-    paddingHorizontal: 10,
-  },
+
   groupingActionButtons: {
     width: "90%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     columnGap: 10,
     marginVertical: 10,
   },
