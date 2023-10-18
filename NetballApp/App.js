@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Menu from "./components/MenuScreen";
+// import Menu from "./components/MenuScreen";
 import GameDay from "./components/GameDay/GameDay";
 import Scoring from "./components/Scoring/Scoring";
 
@@ -11,7 +11,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Home"
           component={Menu}
           options={{
@@ -20,7 +20,7 @@ export default function App() {
               fontWeight: "normal",
             },
           }}
-        />
+        /> */}
         <Stack.Screen
           name="GameDay"
           component={GameDay}

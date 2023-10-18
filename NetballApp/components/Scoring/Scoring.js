@@ -63,30 +63,36 @@ const ScoringPage = ({ route, navigate }) => {
         </View>
       </View>
 
-      <View style={styles.counterBoardContainer}>
-        <CounterBoard
-          label={"team 1"}
-          onDecrement={() => decrementTeamScore(1)}
-          value={team1Score}
-        />
-        <Text>VS</Text>
-        <CounterBoard
-          label={"team 2"}
-          onDecrement={() => decrementTeamScore(2)}
-          value={team2Score}
-        />
-      </View>
-      <View style={styles.counterContainer}>
-        <Counter
-          label={"team 1"}
-          onIncrementGS={() => incrementTeamScoreGS(1)}
-          onIncrementGA={() => incrementTeamScoreGA(1)}
-        />
-        <Counter
-          label={"team 2"}
-          onIncrementGS={() => incrementTeamScoreGS(2)}
-          onIncrementGA={() => incrementTeamScoreGA(2)}
-        />
+      <View style={styles.counterAndBoardContainer}>
+        <View style={styles.counterBoardContainer}>
+          <CounterBoard
+            label={"team 1"}
+            onDecrement={() => decrementTeamScore(1)}
+            value={team1Score}
+            disabled={team1Score === 0}
+          />
+          <Text style={styles.counterBoardText}>VS</Text>
+          <CounterBoard
+            label={"team 2"}
+            onDecrement={() => decrementTeamScore(2)}
+            value={team2Score}
+            disabled={team2Score === 0}
+          />
+        </View>
+        <View style={styles.counterContainer}>
+          <Counter
+            label={"team 1"}
+            value={team1Score}
+            onIncrementGS={() => incrementTeamScoreGS(1)}
+            onIncrementGA={() => incrementTeamScoreGA(1)}
+          />
+          <Counter
+            value={team2Score}
+            label={"team 2"}
+            onIncrementGS={() => incrementTeamScoreGS(2)}
+            onIncrementGA={() => incrementTeamScoreGA(2)}
+          />
+        </View>
       </View>
     </View>
   );
@@ -97,6 +103,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  counterAndBoardContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
   roundText: {
     fontSize: 18,
@@ -116,6 +127,17 @@ const styles = StyleSheet.create({
   },
   counterBoardContainer: {
     flexDirection: "row",
+    width: "95%",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    padding: 10,
+    borderColor: "grey",
+    borderStyle: "solid",
+    borderWidth: 1.5,
+    borderRadius: 20,
+  },
+  counterBoardText: {
+    fontSize: 25,
   },
 });
 
