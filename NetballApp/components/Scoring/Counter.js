@@ -4,45 +4,37 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 const Counter = ({ label, onIncrementGS, onIncrementGA }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.teamContainer}>
-        <View style={styles.scoreContainer}>
-          <Pressable
-            style={[
-              styles.onIncrementGS,
-              label === "team 1" && styles.team1Color,
-              label === "team 2" && styles.team2Color,
-            ]}
-            onPress={onIncrementGS}
+      <View style={styles.scoreButtonContainer}>
+        <Pressable
+          style={[
+            styles.onIncrementGS,
+            label === "team 1" && styles.team1Color,
+            label === "team 2" && styles.team2Color,
+          ]}
+          onPress={onIncrementGS}
+        >
+          <Text
+            style={[styles.buttonText, label === "team 2" && styles.team2Color]}
           >
-            <Text
-              style={[
-                styles.buttonText,
-                label === "team 2" && styles.team2Color,
-              ]}
-            >
-              GS
-            </Text>
-          </Pressable>
-        </View>
-        <View style={styles.scoreContainer}>
-          <Pressable
-            style={[
-              styles.onIncrementGA,
-              label === "team 1" && styles.team1Color,
-              label === "team 2" && styles.team2Color,
-            ]}
-            onPress={onIncrementGA}
+            GS
+          </Text>
+        </Pressable>
+      </View>
+      <View style={styles.scoreButtonContainer}>
+        <Pressable
+          style={[
+            styles.onIncrementGA,
+            label === "team 1" && styles.team1Color,
+            label === "team 2" && styles.team2Color,
+          ]}
+          onPress={onIncrementGA}
+        >
+          <Text
+            style={[styles.buttonText, label === "team 2" && styles.team2Color]}
           >
-            <Text
-              style={[
-                styles.buttonText,
-                label === "team 2" && styles.team2Color,
-              ]}
-            >
-              GA
-            </Text>
-          </Pressable>
-        </View>
+            GA
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -52,16 +44,30 @@ export default Counter;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: "column",
+    width: "45%",
+    margin: 10,
+    marginBottom: 15,
+    gap: 10,
+  },
+  scoreButtonContainer: {
+    height: "49%",
   },
   onIncrementGS: {
-    padding: 50,
+    height: "100%",
     borderRadius: 15,
+    justifyContent: "center",
   },
-  onIncrementGA: { backgroundColor: "#FB8500", padding: 50, borderRadius: 15 },
+  onIncrementGA: {
+    height: "100%",
+    borderRadius: 15,
+    justifyContent: "center",
+  },
   buttonText: {
-    fontSize: 20,
+    fontSize: 30,
+    fontWeight: "500",
     color: "white",
+    textAlign: "center",
   },
   team1Color: {
     backgroundColor: "#FB8500",
@@ -69,10 +75,6 @@ const styles = StyleSheet.create({
   team2Color: {
     backgroundColor: "#FFB703",
     color: "black",
-  },
-  teamContainer: {
-    gap: 10,
-    flexDirection: "column", // Added to stack "GS" and "GA" vertically
   },
   scoreText: {
     fontSize: 18,

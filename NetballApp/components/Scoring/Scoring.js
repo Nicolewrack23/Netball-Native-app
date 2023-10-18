@@ -7,7 +7,6 @@ import CounterBoard from "./CounterBoard";
 const ScoringPage = ({ route, navigate }) => {
   const { newGameData } = route.params;
   const totalRounds = parseInt(newGameData.Rounds);
-  console.log(totalRounds);
   const [currentRound, setCurrentRound] = useState(1);
 
   const [team1ScoreGS, setTeam1ScoreGS] = useState(0);
@@ -55,12 +54,16 @@ const ScoringPage = ({ route, navigate }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.roundText}>Round: {currentRound}</Text>
-      <Text style={styles.teamText}>{newGameData.Team1}</Text>
-      <Text>VS</Text>
-      <Text style={styles.teamText}>{newGameData.Team2}</Text>
+      <View>
+        <Text style={styles.roundText}>Round: {currentRound}</Text>
+        <View style={styles.alignTeamItems}>
+          <Text style={styles.teamText}>{newGameData.Team1}</Text>
+          <Text>VS</Text>
+          <Text style={styles.teamText}>{newGameData.Team2}</Text>
+        </View>
+      </View>
 
-      <View style={styles.countersContainer}>
+      <View style={styles.counterBoardContainer}>
         <CounterBoard
           label={"team 1"}
           onDecrement={() => decrementTeamScore(1)}
@@ -73,7 +76,7 @@ const ScoringPage = ({ route, navigate }) => {
           value={team2Score}
         />
       </View>
-      <View style={styles.countersContainer}>
+      <View style={styles.counterContainer}>
         <Counter
           label={"team 1"}
           onIncrementGS={() => incrementTeamScoreGS(1)}
@@ -93,18 +96,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
   roundText: {
     fontSize: 18,
-    marginBottom: 10,
+    margin: 10,
   },
   teamText: {
     fontSize: 16,
     marginBottom: 5,
   },
-
-  countersContainer: {
+  alignTeamItems: {
+    flexDirection: "row",
+    columnGap: 15,
+  },
+  counterContainer: {
+    flexDirection: "row",
+    height: "33%",
+  },
+  counterBoardContainer: {
     flexDirection: "row",
   },
 });
