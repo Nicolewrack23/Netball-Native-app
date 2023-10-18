@@ -110,16 +110,20 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   roundText: {
+    textAlign: "center",
     fontSize: 18,
     margin: 10,
   },
   teamText: {
     fontSize: 16,
-    marginBottom: 5,
   },
   alignTeamItems: {
     flexDirection: "row",
     columnGap: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderBottomColor: "#FFB703",
+    borderBottomWidth: 2,
   },
   counterContainer: {
     flexDirection: "row",
