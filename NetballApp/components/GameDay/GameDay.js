@@ -9,7 +9,6 @@ const GameDay = ({ navigation }) => {
   const [team2, setTeam2] = useState("Team 2");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedRound, setSelectedRound] = useState(2);
-  console.log(selectedRound);
 
   const handleDateChange = (event, date) => {
     setShowDatePicker(false);
@@ -26,9 +25,9 @@ const GameDay = ({ navigation }) => {
       Rounds: selectedRound,
     };
     // Save or process newGameData as needed
-    console.log(newGameData);
-    navigation.navigate("ScoringPage", { newGameData });
+    // console.log(newGameData);
     // await storeData(newGameData)
+    navigation.navigate("ScoringPage", { newGameData });
   };
 
   return (

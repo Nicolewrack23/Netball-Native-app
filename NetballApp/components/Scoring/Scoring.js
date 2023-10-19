@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
 import Counter from "./Counter";
@@ -8,14 +8,66 @@ const ScoringPage = ({ route, navigate }) => {
   const { newGameData } = route.params;
   const totalRounds = parseInt(newGameData.Rounds);
   const [currentRound, setCurrentRound] = useState(1);
-
   const [team1ScoreGS, setTeam1ScoreGS] = useState(0);
   const [team1ScoreGA, setTeam1ScoreGA] = useState(0);
   const [team2ScoreGS, setTeam2ScoreGS] = useState(0);
   const [team2ScoreGA, setTeam2ScoreGA] = useState(0);
+  const [roundData, setRoundData] = useState({});
+  const [isGameFinished, setIsGameFinished] = useState(false);
+
+  const handleNextRoundOrFinish = () => {
+    // Store data for the current round
+    const roundDataForCurrentRound = {
+      team1ScoreGS,
+      team1ScoreGA,
+      team2ScoreGS,
+      team2ScoreGA,
+    };
+
+    setRoundData((prevData) => ({
+      ...prevData,
+      [currentRound]: roundDataForCurrentRound,
+    }));
+    console.log("first: ", currentRound);
+    // If it's the last round, set the game as finished
+    if (currentRound === totalRounds) {
+      setIsGameFinished(true);
+    } else {
+      // Increment the current round
+      setCurrentRound((prevRound) => prevRound + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (currentRound < totalRounds) {
+      // Load data for the current round
+      const dataForRound = roundData[currentRound];
+      if (dataForRound) {
+        setTeam1ScoreGS(dataForRound.team1ScoreGS);
+        setTeam1ScoreGA(dataForRound.team1ScoreGA);
+        setTeam2ScoreGS(dataForRound.team2ScoreGS);
+        setTeam2ScoreGA(dataForRound.team2ScoreGA);
+      } else {
+        // If data for the round is not available, reset scores
+        setTeam1ScoreGS(0);
+        setTeam1ScoreGA(0);
+        setTeam2ScoreGS(0);
+        setTeam2ScoreGA(0);
+      }
+    }
+    if (currentRound >= totalRounds) {
+      console.log(currentRound);
+      // Perform your action (e.g., navigation) when the state is updated
+      handleTransfer();
+    }
+  }, [currentRound, totalRounds, roundData]);
+
+  const handleTransfer = () => {
+    console.log("final Data: ", roundData);
+    // navigate('FinalScreen', { roundData });
+  };
   const [team1Score, setTeam1Score] = useState(0);
   const [team2Score, setTeam2Score] = useState(0);
-
   const incrementTeamScoreGS = (team) => {
     if (team === 1) {
       setTeam1ScoreGS(team1ScoreGS + 1);
@@ -62,6 +114,23 @@ const ScoringPage = ({ route, navigate }) => {
           <Text style={styles.teamText}>{newGameData.Team2}</Text>
         </View>
       </View>
+      {currentRound < totalRounds ? (
+        <Pressable
+          disabled={isGameFinished}
+          onPress={handleNextRoundOrFinish}
+          style={styles.nextButton}
+        >
+          <Text style={styles.nextButtonText}>Next</Text>
+        </Pressable>
+      ) : (
+        <Pressable
+          disabled={isGameFinished}
+          onPress={handleNextRoundOrFinish}
+          style={styles.finishButton}
+        >
+          <Text style={styles.finishButtonText}>Finish</Text>
+        </Pressable>
+      )}
 
       <View style={styles.counterAndBoardContainer}>
         <View style={styles.counterBoardContainer}>
@@ -69,14 +138,14 @@ const ScoringPage = ({ route, navigate }) => {
             label={"team 1"}
             onDecrement={() => decrementTeamScore(1)}
             value={team1Score}
-            disabled={team1Score === 0}
+            isGameFinished={isGameFinished}
           />
           <Text style={styles.counterBoardText}>VS</Text>
           <CounterBoard
             label={"team 2"}
             onDecrement={() => decrementTeamScore(2)}
             value={team2Score}
-            disabled={team2Score === 0}
+            isGameFinished={isGameFinished}
           />
         </View>
         <View style={styles.counterContainer}>
@@ -85,12 +154,14 @@ const ScoringPage = ({ route, navigate }) => {
             value={team1Score}
             onIncrementGS={() => incrementTeamScoreGS(1)}
             onIncrementGA={() => incrementTeamScoreGA(1)}
+            isGameFinished={isGameFinished}
           />
           <Counter
             value={team2Score}
             label={"team 2"}
             onIncrementGS={() => incrementTeamScoreGS(2)}
             onIncrementGA={() => incrementTeamScoreGA(2)}
+            isGameFinished={isGameFinished}
           />
         </View>
       </View>

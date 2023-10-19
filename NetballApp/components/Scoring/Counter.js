@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
-const Counter = ({ label, onIncrementGS, onIncrementGA }) => {
+const Counter = ({ label, onIncrementGS, onIncrementGA, isGameFinished }) => {
   return (
     <View style={styles.container}>
       <View style={styles.scoreButtonContainer}>
@@ -12,6 +12,7 @@ const Counter = ({ label, onIncrementGS, onIncrementGA }) => {
             label === "team 2" && styles.team2Color,
           ]}
           onPress={onIncrementGS}
+          disabled={isGameFinished}
         >
           <Text
             style={[styles.buttonText, label === "team 2" && styles.team2Color]}
@@ -28,6 +29,7 @@ const Counter = ({ label, onIncrementGS, onIncrementGA }) => {
             label === "team 2" && styles.team2Color,
           ]}
           onPress={onIncrementGA}
+          disabled={isGameFinished}
         >
           <Text
             style={[styles.buttonText, label === "team 2" && styles.team2Color]}
