@@ -20,6 +20,8 @@ const ScoringPage = ({ route, navigate }) => {
   const handleNextRoundOrFinish = () => {
     // Store data for the current round
     const roundDataForCurrentRound = {
+      team1Score,
+      team2Score,
       team1ScoreGS,
       team1ScoreGA,
       team2ScoreGS,
@@ -30,6 +32,12 @@ const ScoringPage = ({ route, navigate }) => {
       ...prevData,
       [currentRound]: roundDataForCurrentRound,
     }));
+
+    setTeam1ScoreGS(0);
+    setTeam1ScoreGA(0);
+    setTeam2ScoreGS(0);
+    setTeam2ScoreGA(0);
+
     console.log("first: ", currentRound);
     // If it's the last round, set the game as finished
     if (currentRound === totalRounds) {
