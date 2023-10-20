@@ -14,6 +14,8 @@ const ScoringPage = ({ route, navigate }) => {
   const [team2ScoreGA, setTeam2ScoreGA] = useState(0);
   const [roundData, setRoundData] = useState({});
   const [isGameFinished, setIsGameFinished] = useState(false);
+  const [isGSOrGATeam1, setIsGSOrGATeam1] = useState();
+  const [isGSOrGATeam2, setIsGSOrGATeam2] = useState();
 
   const handleNextRoundOrFinish = () => {
     // Store data for the current round
@@ -70,9 +72,11 @@ const ScoringPage = ({ route, navigate }) => {
   const [team2Score, setTeam2Score] = useState(0);
   const incrementTeamScoreGS = (team) => {
     if (team === 1) {
+      setIsGSOrGATeam1(true);
       setTeam1ScoreGS(team1ScoreGS + 1);
       setTeam1Score(team1Score + 1);
     } else if (team === 2) {
+      setIsGSOrGATeam2(true);
       setTeam2ScoreGS(team2ScoreGS + 1);
       setTeam2Score(team2Score + 1);
     }
@@ -80,9 +84,11 @@ const ScoringPage = ({ route, navigate }) => {
 
   const incrementTeamScoreGA = (team) => {
     if (team === 1) {
+      setIsGSOrGATeam1(false);
       setTeam1ScoreGA(team1ScoreGA + 1);
       setTeam1Score(team1Score + 1);
     } else if (team === 2) {
+      setIsGSOrGATeam2(false);
       setTeam2ScoreGA(team2ScoreGA + 1);
       setTeam2Score(team2Score + 1);
     }
@@ -92,12 +98,22 @@ const ScoringPage = ({ route, navigate }) => {
     if (team === 1) {
       if (team1Score > 0) {
         setTeam1Score(team1Score - 1);
+        if (isGSOrGATeam1) {
+          setTeam1ScoreGS(team1ScoreGS - 1);
+        } else {
+          setTeam1ScoreGA(team1ScoreGA - 1);
+        }
       } else {
         return;
       }
     } else if (team === 2) {
       if (team2Score > 0) {
         setTeam2Score(team2Score - 1);
+        if (isGSOrGATeam2) {
+          setTeam2ScoreGS(team2ScoreGS - 1);
+        } else {
+          setTeam2ScoreGA(team2ScoreGA - 1);
+        }
       } else {
         return;
       }
