@@ -2,13 +2,13 @@ import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-const CounterBoard = ({ value, onDecrement, label }) => {
+const CounterBoard = ({ value, onDecrement, label, isGameFinished }) => {
   return (
     <View style={styles.container}>
       {label === "team 1" && (
         <>
           <View style={styles.buttonContainer}>
-            <Pressable onPress={onDecrement}>
+            <Pressable onPress={onDecrement} disabled={isGameFinished}>
               <Icon name="remove" size={30} color="#ffffff" />
             </Pressable>
           </View>
@@ -30,7 +30,7 @@ const CounterBoard = ({ value, onDecrement, label }) => {
               </View>
             </View>
           </View>
-          <View style={styles.buttonContainer}>
+          <View style={styles.buttonContainer} disabled={isGameFinished}>
             <Pressable onPress={onDecrement}>
               <Icon name="remove" size={30} color="#ffffff" />
             </Pressable>
