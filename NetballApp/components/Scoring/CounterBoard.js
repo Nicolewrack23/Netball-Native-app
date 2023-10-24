@@ -30,8 +30,8 @@ const CounterBoard = ({ value, onDecrement, label, isGameFinished }) => {
               </View>
             </View>
           </View>
-          <View style={styles.buttonContainer} disabled={isGameFinished}>
-            <Pressable onPress={onDecrement}>
+          <View style={styles.buttonContainer}>
+            <Pressable onPress={onDecrement} disabled={isGameFinished}>
               <Icon name="remove" size={30} color="#ffffff" />
             </Pressable>
           </View>
