@@ -2,7 +2,6 @@ import { View, Text, Pressable, StyleSheet, TextInput } from "react-native";
 import { useState } from "react";
 import DatePicker from "./DatePicker";
 import RoundsSelection from "./RoundsSelection";
-import { storeData } from "../Utils/LocalStorage";
 
 const GameDay = ({ navigation }) => {
   const [team1, setTeam1] = useState("Team 1");
@@ -24,9 +23,6 @@ const GameDay = ({ navigation }) => {
       SelectedDate: selectedDate.toString(),
       Rounds: selectedRound,
     };
-    // Save or process newGameData as needed
-    // console.log(newGameData);
-    // await storeData(newGameData)
     navigation.navigate("ScoringPage", { newGameData });
   };
 
