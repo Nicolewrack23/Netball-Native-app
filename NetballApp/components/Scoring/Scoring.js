@@ -172,7 +172,6 @@ const ScoringPage = ({ route, navigate }) => {
           >
             <Text style={styles.finishButtonText}>Finish</Text>
           </Pressable>
-          <br></br>
           <Pressable onPress={deleteData}>
             <Text style={styles.finishButtonText}>delete</Text>
           </Pressable>
