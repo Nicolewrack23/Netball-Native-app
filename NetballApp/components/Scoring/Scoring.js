@@ -3,6 +3,8 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 
 import Counter from "./Counter";
 import CounterBoard from "./CounterBoard";
+import { storeData } from "../Utils/LocalStorage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ScoringPage = ({ route, navigate }) => {
   const { newGameData } = route.params;
@@ -12,7 +14,7 @@ const ScoringPage = ({ route, navigate }) => {
   const [team1ScoreGA, setTeam1ScoreGA] = useState(0);
   const [team2ScoreGS, setTeam2ScoreGS] = useState(0);
   const [team2ScoreGA, setTeam2ScoreGA] = useState(0);
-  const [roundData, setRoundData] = useState({});
+  const [roundData, setRoundData] = useState(newGameData);
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isGSOrGATeam1, setIsGSOrGATeam1] = useState();
   const [isGSOrGATeam2, setIsGSOrGATeam2] = useState();
@@ -38,16 +40,13 @@ const ScoringPage = ({ route, navigate }) => {
     setTeam2ScoreGS(0);
     setTeam2ScoreGA(0);
 
-    console.log("first: ", currentRound);
-    // If it's the last round, set the game as finished
-    if (currentRound === totalRounds) {
-      setIsGameFinished(true);
-    } else {
-      // Increment the current round
-      setCurrentRound((prevRound) => prevRound + 1);
-    }
+    setCurrentRound((prevRound) => prevRound + 1);
   };
 
+  const handleFinish = async () => {
+    await handleTransfer();
+    console.log("handle finish");
+  };
   useEffect(() => {
     if (currentRound < totalRounds) {
       // Load data for the current round
@@ -65,16 +64,34 @@ const ScoringPage = ({ route, navigate }) => {
         setTeam2ScoreGA(0);
       }
     }
-    if (currentRound >= totalRounds) {
-      console.log(currentRound);
-      // Perform your action (e.g., navigation) when the state is updated
-      handleTransfer();
-    }
   }, [currentRound, totalRounds, roundData]);
 
-  const handleTransfer = () => {
-    console.log("final Data: ", roundData);
-    // navigate('FinalScreen', { roundData });
+  const handleTransfer = async () => {
+    // If it's the last round, set the game as finished
+    if (currentRound === totalRounds) {
+      setIsGameFinished(true);
+      console.log("finished");
+    }
+    const roundDataForLastRound = {
+      team1Score,
+      team2Score,
+      team1ScoreGS,
+      team1ScoreGA,
+      team2ScoreGS,
+      team2ScoreGA,
+    };
+
+    const updatedRoundData = {
+      ...roundData,
+      [currentRound]: roundDataForLastRound,
+    };
+
+    await storeData(updatedRoundData);
+  };
+
+  const deleteData = async () => {
+    await AsyncStorage.clear();
+    alert("All data in local storage has been deleted.");
   };
   const [team1Score, setTeam1Score] = useState(0);
   const [team2Score, setTeam2Score] = useState(0);
@@ -147,13 +164,19 @@ const ScoringPage = ({ route, navigate }) => {
           <Text style={styles.nextButtonText}>Next</Text>
         </Pressable>
       ) : (
-        <Pressable
-          disabled={isGameFinished}
-          onPress={handleNextRoundOrFinish}
-          style={styles.finishButton}
-        >
-          <Text style={styles.finishButtonText}>Finish</Text>
-        </Pressable>
+        <>
+          <Pressable
+            disabled={isGameFinished}
+            onPress={handleFinish}
+            style={styles.finishButton}
+          >
+            <Text style={styles.finishButtonText}>Finish</Text>
+          </Pressable>
+          <br></br>
+          <Pressable onPress={deleteData}>
+            <Text style={styles.finishButtonText}>delete</Text>
+          </Pressable>
+        </>
       )}
 
       <View style={styles.counterAndBoardContainer}>
