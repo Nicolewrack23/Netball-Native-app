@@ -6,7 +6,7 @@ import CounterBoard from "./CounterBoard";
 import { storeData } from "../Utils/LocalStorage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ScoringPage = ({ route, navigate }) => {
+const ScoringPage = ({ route, navigation }) => {
   const { newGameData } = route.params;
   const totalRounds = parseInt(newGameData.Rounds);
   const [currentRound, setCurrentRound] = useState(1);
@@ -87,6 +87,7 @@ const ScoringPage = ({ route, navigate }) => {
     };
 
     await storeData(updatedRoundData);
+    navigation.navigate("ResultPage", { updatedRoundData: updatedRoundData });
   };
 
   const deleteData = async () => {
